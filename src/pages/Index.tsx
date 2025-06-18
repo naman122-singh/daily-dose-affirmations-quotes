@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Heart, RefreshCw, BookOpen, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -6,6 +5,7 @@ import { Card } from '@/components/ui/card';
 import { toast } from 'sonner';
 import QuoteCard from '@/components/QuoteCard';
 import FavoritesList from '@/components/FavoritesList';
+import SplashScreen from '@/components/SplashScreen';
 
 const quotes = [
   "Success is not final, failure is not fatal: it is the courage to continue that counts. - Winston Churchill",
@@ -61,6 +61,7 @@ const quotes = [
 ];
 
 const Index = () => {
+  const [showSplash, setShowSplash] = useState(true);
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
   const [favorites, setFavorites] = useState<string[]>([]);
   const [showFavorites, setShowFavorites] = useState(false);
@@ -114,6 +115,14 @@ const Index = () => {
       duration: 2000,
     });
   };
+
+  const handleSplashComplete = () => {
+    setShowSplash(false);
+  };
+
+  if (showSplash) {
+    return <SplashScreen onComplete={handleSplashComplete} />;
+  }
 
   const currentQuote = quotes[currentQuoteIndex];
   const isFavorite = favorites.includes(currentQuote);
